@@ -16,6 +16,12 @@
 -->
 <resources>
 
+    <!-- Network traffic monitor single-line text size -->
+    <dimen name="net_traffic_single_text_size">12dp</dimen>
+
+    <!-- Network traffic monitor multi-line text size -->
+    <dimen name="net_traffic_multi_text_size">9dp</dimen>
+
     <!-- Volume panel border coler -->
     <color name="volume_panel_border_color">#ff2962ff</color><!-- blue A700 -->
 
