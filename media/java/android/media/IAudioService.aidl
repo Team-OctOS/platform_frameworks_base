@@ -165,6 +165,16 @@ interface IAudioService {
     oneway void unregisterRecordingCallback(in IRecordingConfigDispatcher rcdb);
 
     List<AudioRecordingConfiguration> getActiveRecordingConfigurations();
+    /**
+     * Internal DU api to protect Pulse
+     * @hide
+     */
+    void setVisualizerLocked(boolean doLock);
+
+    /**
+     * @hide
+     */
+    boolean isVisualizerLocked(String callingPackage);
 
     void handleHotwordInput(boolean listening);
 
@@ -175,4 +185,5 @@ interface IAudioService {
     void addMediaPlayerAndUpdateRemoteController(String packageName);
 
     void removeMediaPlayerAndUpdateRemoteController(String packageName);
+
 }
