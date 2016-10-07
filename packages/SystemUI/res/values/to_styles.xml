@@ -24,7 +24,7 @@
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:layout_centerVertical">true</item>
     </style>
-    
+
     <!-- Switch bar text appearance -->
     <style name="TextAppearance.SwitchBar" parent="@android:style/TextAppearance.Material.Title">
         <item name="android:textColor">?android:attr/textColorPrimaryInverse</item>
@@ -44,4 +44,12 @@
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">#ffffff</item>
     </style>
+
+    <!-- Status bar notification ticker -->
+    <style name="TextAppearance.StatusBar.PhoneTicker"
+        parent="@*android:style/TextAppearance.StatusBar.Ticker">
+        <!-- Note: must be dp to fit in status bar -->
+        <item name="android:textSize">14dp</item>
+    </style>
+
 </resources>
