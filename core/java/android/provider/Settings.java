@@ -3574,6 +3574,12 @@ public final class Settings {
         public static final String CAR_UNDOCK_SOUND = Global.CAR_UNDOCK_SOUND;
 
         /**
+         * Alternative recent apps integration using OmniSwitch
+         * @hide
+         */
+        public static final String RECENTS_USE_OMNISWITCH = "recents_use_omniswitch";
+
+        /**
          * @deprecated Use {@link android.provider.Settings.Global#LOCK_SOUND}
          * instead
          * @hide
