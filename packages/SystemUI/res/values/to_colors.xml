@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
-     Copyright (C) 2015 The Android Open Source Project
+     Copyright (C) 2016 Team-OctOs
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -13,6 +14,13 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<shape xmlns:android="http://schemas.android.com/apk/res/android" >
-    <solid android:color="@*android:color/material_pixel_blue_dark" />
-</shape>
+<resources>
+
+    <!-- Volume panel border coler -->
+    <color name="volume_panel_border_color">#ff2962ff</color><!-- blue A700 -->
+
+    <color name="system_primary_color">@*android:color/material_pixel_blue_dark</color>
+    <color name="system_secondary_color">@*android:color/material_pixel_blue_light</color>
+    <color name="system_accent_color">@*android:color/material_pixel_blue_bright</color>
+
+</resources>
