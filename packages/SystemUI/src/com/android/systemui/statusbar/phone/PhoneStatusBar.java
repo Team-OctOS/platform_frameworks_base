@@ -537,6 +537,12 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
            resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.NAV_BAR_DYNAMIC),
                     false, this, UserHandle.USER_ALL);
+           resolver.registerContentObserver(Settings.System.getUriFor(
+                  Settings.System.QS_ROWS_PORTRAIT),
+                  false, this, UserHandle.USER_ALL);
+           resolver.registerContentObserver(Settings.System.getUriFor(
+                  Settings.System.QS_ROWS_LANDSCAPE),
+                  false, this, UserHandle.USER_ALL);
            updateSettings();
         }
 
@@ -546,16 +552,11 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             if (uri.equals(Settings.System.getUriFor(
                       Settings.System.NAV_BAR_DYNAMIC))) {
                       mNavigationController.updateNavbarOverlay(mContext.getResources());
-            }
-            updateSettings();
-        }
-
-        @Override
-        public void onChange(boolean selfChange, Uri uri) {
-            super.onChange(selfChange, uri);
-            if (uri.equals(Settings.System.getUriFor(
-                      Settings.System.NAV_BAR_DYNAMIC))) {
-                      mNavigationController.updateNavbarOverlay(mContext.getResources());
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.QS_ROWS_PORTRAIT))
+                    || uri.equals(Settings.System.getUriFor(
+                    Settings.System.QS_ROWS_LANDSCAPE))) {
+                    updateResources();
             }
             updateSettings();
         }
