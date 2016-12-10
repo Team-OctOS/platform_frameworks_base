@@ -4021,6 +4021,12 @@ public final class Settings {
         public static final String QS_EXPAND_INDICATOR_TOGGLE = "qs_expand_indicator_toggle";
 
         /**
+         * Whether to show the negociated charger current in the lockscreen
+         * @hide
+         */
+        public static final String LOCKSCREEN_CHARGING_CURRENT = "lockscreen_charging_current";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
