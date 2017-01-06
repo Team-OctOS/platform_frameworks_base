@@ -811,6 +811,15 @@ final class DefaultPermissionGrantPolicy {
                 grantRuntimePermissionsLPw(vendingPackage, STORAGE_PERMISSIONS, userId);
             }
 
+            // Google Pixel Launcher
+            PackageParser.Package pixellauncherPackage = getSystemPackageLPr(
+                    "com.google.android.apps.nexuslauncher");
+            if (pixellauncherPackage != null) {
+                grantRuntimePermissionsLPw(pixellauncherPackage, LOCATION_PERMISSIONS, userId);
+                grantRuntimePermissionsLPw(pixellauncherPackage, PHONE_PERMISSIONS, userId);
+                grantRuntimePermissionsLPw(pixellauncherPackage, STORAGE_PERMISSIONS, userId);
+            }
+
             // Project Fi
             PackageParser.Package fiPackage = getDefaultProviderAuthorityPackageLPr(
                     "com.google.android.apps.tycho", userId);
