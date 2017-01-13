@@ -2188,8 +2188,8 @@ message MetricsEvent {
     // Settings launched from collapsed quick settings.
     ACTION_QS_COLLAPSED_SETTINGS_LAUNCH = 490;
 
-    // OPEN: QS Night Light tile shown
-    // ACTION: QS Night Light tile tapped
+    // OPEN: QS Night Mode tile shown
+    // ACTION: QS Night Mode tile tapped
     //   SUBTYPE: 0 is off, 1 is on
     // CATEGORY: QUICK_SETTINGS
     QS_NIGHT_DISPLAY = 491;
