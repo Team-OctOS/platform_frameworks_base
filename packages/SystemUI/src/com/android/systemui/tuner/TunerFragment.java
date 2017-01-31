@@ -43,11 +43,6 @@ import com.android.systemui.R;
 public class TunerFragment extends PreferenceFragment {
 
     private static final String TAG = "TunerFragment";
-
-    private static final String SHOW_LTE_FOURGEE = "show_lte_fourgee";
-
-    private SwitchPreference mShowLteFourGee;
-
     private static final String TAG_TUNER = "tuner";
 
     private static final String KEY_BATTERY_PCT = "battery_pct";
@@ -67,14 +62,6 @@ public class TunerFragment extends PreferenceFragment {
         PreferenceScreen prefSet = getPreferenceScreen();
 
         final ContentResolver resolver = getActivity().getContentResolver();
-
-        mShowLteFourGee = (SwitchPreference) findPreference(SHOW_LTE_FOURGEE);
-        if (DuUtils.isWifiOnly(getActivity())) {
-            prefSet.removePreference(mShowLteFourGee);
-        } else {
-        mShowLteFourGee.setChecked((Settings.System.getInt(resolver,
-                Settings.System.SHOW_LTE_FOURGEE, 0) == 1));
-        }
 
         setHasOptionsMenu(true);
     }
@@ -124,12 +111,6 @@ public class TunerFragment extends PreferenceFragment {
 
     @Override
     public boolean onPreferenceTreeClick(Preference preference) {
-        if  (preference == mShowLteFourGee) {
-            boolean checked = ((SwitchPreference)preference).isChecked();
-            Settings.System.putInt(getActivity().getContentResolver(),
-                    Settings.System.SHOW_LTE_FOURGEE, checked ? 1:0);
-            return true;
-        }
         return super.onPreferenceTreeClick(preference);
     }
 
