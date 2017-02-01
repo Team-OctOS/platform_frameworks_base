@@ -265,7 +265,7 @@
                   android:icon="@drawable/tuner"
                   android:theme="@style/TunerSettings"
                   android:label="@string/systemui_tuner_pnc_title"
-                  android:parentActivityName="com.dirtyunicorns.dutweaks.DirtyTweaks"
+                  android:parentActivityName="com.teamoctos.tentacles.Tentacles"
                   android:process=":tuner"
                   android:exported="true">
         </activity>
