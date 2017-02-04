@@ -394,7 +394,8 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 
     // viewgroup containing the normal contents of the statusbar
     LinearLayout mStatusBarContents;
-    View mCenterClock;
+    private TextView mCenterClock;
+    private int mClockLocation;
 
     // expanded notifications
     protected NotificationPanelView mNotificationPanel; // the sliding/resizing panel within the notification window
@@ -545,6 +546,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
            resolver.registerContentObserver(Settings.System.getUriFor(
                   Settings.System.STATUS_BAR_CUSTOM_HEADER_SHADOW),
                   false, this, UserHandle.USER_ALL);
+           resolver.registerContentObserver(CMSettings.System.getUriFor(
+                  CMSettings.System.STATUS_BAR_CLOCK),
+                  false, this, UserHandle.USER_ALL);
            resolver.registerContentObserver(Settings.System.getUriFor(
                   Settings.System.STATUS_BAR_CUSTOM_HEADER),
                   false, this, UserHandle.USER_ALL);
@@ -582,7 +586,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                     mTickerEnabled = Settings.System.getIntForUser(
                             mContext.getContentResolver(),
                             Settings.System.STATUS_BAR_SHOW_TICKER,
-                            0, UserHandle.USER_CURRENT) == 1;
+                            1, UserHandle.USER_CURRENT) == 1;
                     initTickerView();
             }
             updateSettings();
@@ -591,8 +595,22 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         public void updateSettings() {
             ContentResolver resolver = mContext.getContentResolver();
 
+            mClockLocation = CMSettings.System.getIntForUser(resolver,
+                    CMSettings.System.STATUS_BAR_CLOCK, 0, UserHandle.USER_CURRENT);
+            Log.d(TAG, "updateSettings() mClockLocation " + mClockLocation);
+
             mQsLayoutColumns = Settings.System.getIntForUser(resolver,
                     Settings.System.QS_LAYOUT_COLUMNS, 3, mCurrentUserId);
+
+            boolean headsUpEnabled = Settings.System.getIntForUser(resolver,
+                    Settings.Global.HEADS_UP_NOTIFICATIONS_ENABLED, 0, UserHandle.USER_CURRENT) == 1;
+            if (headsUpEnabled) {
+                mTickerEnabled = Settings.System.getIntForUser(mContext.getContentResolver(),
+                        Settings.System.STATUS_BAR_SHOW_TICKER,
+                        mContext.getResources().getBoolean(R.bool.enable_ticker)
+                        ? 1 : 1, UserHandle.USER_CURRENT) == 1;
+                initTickerView();
+            }
 
             if (mNotificationPanel != null) {
                 mNotificationPanel.updateSettings();
@@ -1069,11 +1087,16 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                 mKeyguardBottomArea.getLockIcon());
         mKeyguardBottomArea.setKeyguardIndicationController(mKeyguardIndicationController);
 
-        mTickerEnabled = Settings.System.getIntForUser(mContext.getContentResolver(),
-                Settings.System.STATUS_BAR_SHOW_TICKER,
-                mContext.getResources().getBoolean(R.bool.enable_ticker)
-                        ? 1 : 1, UserHandle.USER_CURRENT) == 1;
-        initTickerView();
+        mCenterClock = (TextView) mStatusBarWindow.findViewById(R.id.center_clock);
+
+        boolean headsUpEnabled = Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.Global.HEADS_UP_NOTIFICATIONS_ENABLED, 0, UserHandle.USER_CURRENT) == 1;
+        if (headsUpEnabled) {
+            mTickerEnabled = Settings.System.getIntForUser(mContext.getContentResolver(),
+                    Settings.System.STATUS_BAR_SHOW_TICKER,
+                    0, UserHandle.USER_CURRENT) == 1;
+            initTickerView();
+        }
 
         // set the initial view visibility
         setAreThereNotifications();
@@ -3688,8 +3711,12 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             mStatusBarContents.setVisibility(View.GONE);
             mStatusBarContents.startAnimation(loadAnim(com.android.internal.R.anim.push_up_out,
                     null));
-            //mClockView.setVisibility(View.GONE);
-            //mClockView.startAnimation(loadAnim(com.android.internal.R.anim.push_up_out, null));
+            Log.d(TAG, "mClockLocation " + mClockLocation);
+            if (mClockLocation == 1) {
+                Log.d(TAG, "Center clock in use: hide clock");
+                mCenterClock.setVisibility(View.GONE);
+                mCenterClock.startAnimation(loadAnim(com.android.internal.R.anim.push_up_out, null));
+            }
             mTickerView.setVisibility(View.VISIBLE);
             mTickerView.startAnimation(loadAnim(com.android.internal.R.anim.push_up_in, null));
         }
@@ -3703,8 +3730,12 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             mTickerView.setVisibility(View.GONE);
             mTickerView.startAnimation(loadAnim(com.android.internal.R.anim.push_down_out,
                         mTickingDoneListener));
-            //mClockView.setVisibility(View.VISIBLE);
-            //mClockView.startAnimation(loadAnim(com.android.internal.R.anim.push_down_in, null));
+            Log.d(TAG, "mClockLocation " + mClockLocation);
+            if (mClockLocation == 1) {
+                Log.d(TAG, "Center clock in use: show clock");
+                mCenterClock.setVisibility(View.VISIBLE);
+                mCenterClock.startAnimation(loadAnim(com.android.internal.R.anim.push_down_in, null));
+            }
         }
 
         public void tickerHalting() {
@@ -3713,8 +3744,12 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                 mStatusBarContents.setVisibility(View.VISIBLE);
                 mStatusBarContents
                         .startAnimation(loadAnim(com.android.internal.R.anim.fade_in, null));
-                //mClockView.setVisibility(View.VISIBLE);
-                //mClockView.startAnimation(loadAnim(com.android.internal.R.anim.fade_in, null));
+                Log.d(TAG, "mClockLocation " + mClockLocation);
+                if (mClockLocation == 1) {
+                    Log.d(TAG, "Center clock in use: show clock");
+                    mCenterClock.setVisibility(View.VISIBLE);
+                    mCenterClock.startAnimation(loadAnim(com.android.internal.R.anim.fade_in, null));
+                }
             }
             mTickerView.setVisibility(View.GONE);
             // we do not animate the ticker away at this point, just get rid of it (b/6992707)
