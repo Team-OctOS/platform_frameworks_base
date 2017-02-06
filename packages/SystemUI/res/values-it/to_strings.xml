@@ -66,6 +66,6 @@
 
     <!-- Superuser indicator on status bar -->
     <string name="su_indicator">Indicatore Superuser</string>
-    <string name="su_indicator_summary_on">L'\indicatore Superuser visibile quando è attiva una sessione</string>
+    <string name="su_indicator_summary_on">L\'indicatore Superuser visibile quando è attiva una sessione</string>
     <string name="su_indicator_summary_off">Toggle per mostrare l\'indicatore Superuser quando è attiva una sessione</string>
 </resources>
