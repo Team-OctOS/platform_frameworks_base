@@ -62,6 +62,7 @@ public class NetworkTraffic extends TextView {
     private int GB = MB * KB;
     private boolean mAutoHide;
     private boolean mHideArrow;
+    private boolean mMagnify;
     private int mAutoHideThreshold;
     private int mNetworkTrafficColor;
 
@@ -111,13 +112,23 @@ public class NetworkTraffic extends TextView {
                     output = formatOutput(timeDelta, txData, symbol);
                 }
 
-                // Ensure text size is where it needs to be
-                int textSize;
+                // Ensure text size and line spacing is where it needs to be
+                float textSize;
+                float lineSpacing = 1.0f;
                 if (isSet(mState, MASK_UP + MASK_DOWN)) {
                     output += "\n";
-                    textSize = txtSizeMulti;
+                    if (mMagnify) {
+                        lineSpacing = 0.7f;
+                        textSize = Math.round(txtSizeMulti*1.7);
+                    } else {
+                        textSize = txtSizeMulti;
+                    }
                 } else {
-                    textSize = txtSizeSingle;
+                    if (mMagnify) {
+                       textSize = Math.round(txtSizeSingle*1.8);
+                   } else {
+                       textSize = txtSizeSingle;
+                   }
                 }
 
                 // Add information for downlink if it's called for
@@ -127,7 +138,8 @@ public class NetworkTraffic extends TextView {
 
                 // Update view if there's anything new to show
                 if (! output.contentEquals(getText())) {
-                    setTextSize(TypedValue.COMPLEX_UNIT_PX, (float)textSize);
+                    setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+                    setLineSpacing(0, lineSpacing);
                     setText(output);
                 }
                 setVisibility(View.VISIBLE);
@@ -193,6 +205,9 @@ public class NetworkTraffic extends TextView {
                     this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System
                     .getUriFor(Settings.System.NETWORK_TRAFFIC_HIDEARROW), false,
+                    this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System
+                    .getUriFor(Settings.System.NETWORK_TRAFFIC_MAGNIFY), false,
                     this, UserHandle.USER_ALL);
         }
 
@@ -287,6 +302,10 @@ public class NetworkTraffic extends TextView {
 
         mHideArrow = Settings.System.getIntForUser(resolver,
                 Settings.System.NETWORK_TRAFFIC_HIDEARROW, 0,
+                UserHandle.USER_CURRENT) == 1;
+
+        mMagnify = Settings.System.getIntForUser(resolver,
+                Settings.System.NETWORK_TRAFFIC_MAGNIFY, 0,
                 UserHandle.USER_CURRENT) == 1;
 
         mState = Settings.System.getInt(resolver, Settings.System.NETWORK_TRAFFIC_STATE, 0);

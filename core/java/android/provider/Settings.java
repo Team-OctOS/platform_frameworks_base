@@ -3774,6 +3774,12 @@ public final class Settings {
         public static final String NETWORK_TRAFFIC_HIDEARROW = "network_traffic_hidearrow";
 
         /**
+         * Settings for traffic font size
+         * @hide
+         */
+        public static final String NETWORK_TRAFFIC_MAGNIFY = "network_traffic_magnify";
+
+        /**
          * Whether or not to hide the network traffic indicator when there is no activity
          * @hide
          */
