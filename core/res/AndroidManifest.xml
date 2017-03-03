@@ -520,8 +520,6 @@
 
     <protected-broadcast android:name="cyanogenmod.intent.action.LID_STATE_CHANGED" />
 
-    <protected-broadcast android:name="masquerade.substratum.STATUS_CHANGED" />
-
     <!-- ====================================================================== -->
     <!--                          RUNTIME PERMISSIONS                           -->
     <!-- ====================================================================== -->
@@ -1336,14 +1334,12 @@
     <eat-comment />
 
     <!-- Allows access to the list of accounts in the Accounts Service.
-
     <p class="note"><strong>Note:</strong> Beginning with Android 6.0 (API level
     23), if an app shares the signature of the authenticator that manages an
     account, it does not need <code>"GET_ACCOUNTS"</code> permission to read
     information about that account. On Android 5.1 and lower, all apps need
     <code>"GET_ACCOUNTS"</code> permission to read information about any
     account.</p>
-
     <p>Protection level: dangerous
     -->
     <permission android:name="android.permission.GET_ACCOUNTS"
@@ -1764,7 +1760,6 @@
          shown on top of all other apps.  Very few apps
          should use this permission; these windows are intended for
          system-level interaction with the user.
-
          <p class="note"><strong>Note:</strong> If the app
          targets API level 23 or higher, the app user must explicitly grant
          this permission to the app through a permission management screen. The app requests
@@ -1895,7 +1890,6 @@
         android:protectionLevel="signature|privileged|development" />
 
     <!-- Allows an application to read or write the system settings.
-
         <p class="note"><strong>Note:</strong> If the app targets API level 23
         or higher, the app user
         must explicitly grant this permission to the app through a permission management screen.
@@ -1903,7 +1897,6 @@
         {@link android.provider.Settings#ACTION_MANAGE_WRITE_SETTINGS}. The app
         can check whether it has this authorization by calling {@link
         android.provider.Settings.System#canWrite Settings.System.canWrite()}.
-
         <p>Protection level: signature
     -->
     <permission android:name="android.permission.WRITE_SETTINGS"
