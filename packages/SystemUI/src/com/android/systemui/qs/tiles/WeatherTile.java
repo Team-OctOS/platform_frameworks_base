@@ -32,7 +32,6 @@ import com.android.systemui.omni.DetailedWeatherView;
 import com.android.systemui.omni.OmniJawsClient;
 import com.android.systemui.qs.QSDetailItems;
 import com.android.systemui.qs.QSDetailItems.Item;
-import com.android.systemui.qs.QSDetailItemsList;
 import com.android.systemui.qs.QSTile;
 import com.android.systemui.qs.QSTile.DetailAdapter;
 
@@ -55,7 +54,7 @@ public class WeatherTile extends QSTile<QSTile.BooleanState> implements OmniJaws
 
     @Override
     public int getMetricsCategory() {
-        return MetricsEvent.DIRTYTWEAKS;
+        return MetricsEvent.TENTACLES;
     }
 
     @Override
