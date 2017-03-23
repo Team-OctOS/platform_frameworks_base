@@ -23,9 +23,6 @@
 
     <!-- Quick Settings tiles -->
     <string name="quick_settings_screenshot_label">Screenshot</string>
-    <string name="quick_settings_adb_network">ADB network</string>
-    <string name="quick_settings_network_adb_enabled_label">Enabled</string>
-    <string name="quick_settings_network_adb_disabled_label">Disabled</string>
     <string name="quick_settings_expanded_desktop_label">Expanded desktop</string>
     <string name="quick_settings_expanded_desktop">Expanded</string>
     <string name="quick_settings_expanded_desktop_off">Normal</string>
