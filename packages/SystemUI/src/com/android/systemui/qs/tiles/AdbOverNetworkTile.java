@@ -88,7 +88,7 @@ public class AdbOverNetworkTile extends QSTile<QSTile.BooleanState> {
     }
 
     private boolean isAdbEnabled() {
-        return Settings.Global.getInt(mContext.getContentResolver(),
+        return Settings.Secure.getInt(mContext.getContentResolver(),
                 Settings.Global.ADB_ENABLED, 0) > 0;
     }
 
@@ -120,7 +120,7 @@ public class AdbOverNetworkTile extends QSTile<QSTile.BooleanState> {
                     CMSettings.Secure.getUriFor(CMSettings.Secure.ADB_PORT),
                     false, mObserver);
             mContext.getContentResolver().registerContentObserver(
-                    Settings.Global.getUriFor(Settings.Global.ADB_ENABLED),
+                    Settings.Secure.getUriFor(Settings.Global.ADB_ENABLED),
                     false, mObserver);
         } else {
             mContext.getContentResolver().unregisterContentObserver(mObserver);
