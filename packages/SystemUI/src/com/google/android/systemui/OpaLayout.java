@@ -583,4 +583,9 @@ public class OpaLayout extends FrameLayout implements ButtonDispatcher.ButtonInt
         this.mHalo.setVisibility(visibility);
     }
 
+    @Override
+    public void setVertical(boolean vertical) {
+        //no op
+    }
+
 }
