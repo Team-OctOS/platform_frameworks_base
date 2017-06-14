@@ -1,6 +1,11 @@
 /*
  * Copyright (C) 2014 The Android Open Source Project
+<<<<<<< HEAD
  * Copyright (C) 2017 The ABC rom
+=======
+ * Copyright (C) 2016 The ParanoidAndroid Project
+ * Copyright (C) 2017 The LineageOS Project
+>>>>>>> cm/cm-14.1
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -138,6 +143,13 @@ public class LocationTile extends QSTile<QSTile.State> {
     @Override
     public Intent getLongClickIntent() {
         return null;
+    }
+
+    @Override
+    protected void handleSecondaryClick() {
+        final boolean wasEnabled = mState.value;
+        MetricsLogger.action(mContext, getMetricsCategory(), !wasEnabled);
+        mController.setLocationEnabled(!wasEnabled);
     }
 
     @Override
