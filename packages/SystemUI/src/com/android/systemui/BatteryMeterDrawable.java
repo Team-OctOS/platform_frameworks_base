@@ -77,6 +77,7 @@ public class BatteryMeterDrawable extends Drawable implements
     private int mWidth;
     private String mWarningString;
     private final int mCriticalLevel;
+    private int mStyle;
     private boolean mBoltOverlay;
 
     private BatteryController mBatteryController;
